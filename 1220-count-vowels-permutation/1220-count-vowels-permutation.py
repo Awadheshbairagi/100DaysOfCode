@@ -1,15 +1,15 @@
 class Solution:
     def countVowelPermutation(self, n: int) -> int:
         MOD = 10**9 + 7
-        dp = [[1] * 5 for _ in range(n)]
-        transitions = {
-            0: [1],  
-            1: [0, 2],  
-            2: [0, 1, 3, 4],  
-            3: [2, 4],  
-            4: [0]  
-        }       
+        dp = [1] * 5
+
         for i in range(1, n):
-            for j in range(5):
-                dp[i][j] = sum(dp[i - 1][k] for k in transitions[j]) % MOD     
-        return sum(dp[n - 1]) % MOD
+            new_dp = [0] * 5
+            new_dp[0] = (dp[1] + dp[2] + dp[4]) % MOD
+            new_dp[1] = (dp[0] + dp[2]) % MOD
+            new_dp[2] = (dp[1] + dp[3]) % MOD
+            new_dp[3] = (dp[2]) % MOD
+            new_dp[4] = (dp[2] + dp[3]) % MOD
+            dp = new_dp
+
+        return sum(dp) % MOD
