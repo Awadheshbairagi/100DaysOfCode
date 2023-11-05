@@ -4,7 +4,6 @@ class Solution:
         queue = deque(arr[1:])
         curr = arr[0]
         winstreak = 0
-
         while queue:
             opponent = queue.popleft()
             if curr > opponent:
@@ -14,6 +13,5 @@ class Solution:
                 queue.append(curr)
                 curr = opponent
                 winstreak = 1
-            
             if winstreak == k or curr == max_element:
                 return curr
