@@ -8,13 +8,12 @@ class Solution:
     def deleteDuplicates(self, head: Optional[ListNode]) -> Optional[ListNode]:
         current = head
         
-        # Traverse the list
+        # Iterate through the list
         while current and current.next:
-            # If current node's value is equal to the next node's value, skip the next node
+            # If adjacent nodes have the same value, skip the duplicate node
             if current.val == current.next.val:
                 current.next = current.next.next
             else:
-                # Move to the next node
                 current = current.next
         
         return head
