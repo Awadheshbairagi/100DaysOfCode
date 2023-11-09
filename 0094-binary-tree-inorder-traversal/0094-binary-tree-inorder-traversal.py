@@ -12,12 +12,16 @@ class Solution:
         current = root
         
         while current or stack:
+            # Traverse left subtree and push nodes onto the stack
             while current:
                 stack.append(current)
                 current = current.left
             
+            # Pop a node from the stack and add its value to the result
             current = stack.pop()
             result.append(current.val)
+            
+            # Move to the right subtree
             current = current.right
         
         return result
