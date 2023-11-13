@@ -1,22 +1,18 @@
-from typing import List
-
 class Solution:
     def majorityElement(self, nums: List[int]) -> int:
-        # Initialize the candidate and count
-        candidate = nums[0]
-        count = 1
-        
-        # Iterate through the rest of the array
-        for num in nums[1:]:
-            # If count becomes zero, update the candidate
+        candidate = None
+        count = 0
+
+        # Find the candidate for the majority element
+        for num in nums:
             if count == 0:
                 candidate = num
-                count = 1
-            # If the current number is the same as the candidate, increment count
-            elif num == candidate:
+            count += 1 if num == candidate else -1
+
+        # Verify if the candidate is the majority element
+        count = 0
+        for num in nums:
+            if num == candidate:
                 count += 1
-            # If the current number is different from the candidate, decrement count
-            else:
-                count -= 1
-        
+
         return candidate
