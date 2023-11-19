@@ -1,14 +1,13 @@
 class Solution:
     def partition(self, s):
-        def is_palindrome(sub):
-            return sub == sub[::-1]
         def backtrack(start, path):
             if start >= len(s):
                 partitions.append(path[:])
-                return            
+                return      
             for end in range(start + 1, len(s) + 1):
-                if is_palindrome(s[start:end]):
-                    path.append(s[start:end])
+                sub = s[start:end]
+                if sub == sub[::-1]:
+                    path.append(sub)
                     backtrack(end, path)
                     path.pop()
         partitions = []
