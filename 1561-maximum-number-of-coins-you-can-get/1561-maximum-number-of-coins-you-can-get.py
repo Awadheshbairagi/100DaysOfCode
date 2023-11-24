@@ -1,10 +1,8 @@
 class Solution:
     def maxCoins(self, piles: List[int]) -> int:
-        piles.sort()
-        queue = deque(piles)
+        piles.sort(reverse=True)
         ans = 0
-        while queue:
-            queue.pop() 
-            ans += queue.pop() 
-            queue.popleft() 
+        n = len(piles)
+        for i in range(n // 3):
+            ans += piles[2 * i + 1]
         return ans
