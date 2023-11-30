@@ -1,18 +1,17 @@
 class Solution {
-public:
-    void dfs(int node, vector<vector<int>>& isConnected, vector<bool>& visit) {
+    public void dfs(int node, int[][] isConnected, boolean[] visit) {
         visit[node] = true;
-        for (int i = 0; i < isConnected.size(); i++) {
-            if (isConnected[node][i] && !visit[i]) {
+        for (int i = 0; i < isConnected.length; i++) {
+            if (isConnected[node][i] == 1 && !visit[i]) {
                 dfs(i, isConnected, visit);
             }
         }
     }
 
-    int findCircleNum(vector<vector<int>>& isConnected) {
-        int n = isConnected.size();
+    public int findCircleNum(int[][] isConnected) {
+        int n = isConnected.length;
         int numberOfComponents = 0;
-        vector<bool> visit(n);
+        boolean[] visit = new boolean[n];
 
         for (int i = 0; i < n; i++) {
             if (!visit[i]) {
@@ -23,4 +22,4 @@ public:
 
         return numberOfComponents;
     }
-};
+}
