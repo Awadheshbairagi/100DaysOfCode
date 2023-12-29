@@ -1,17 +1,16 @@
+from typing import List
+
 class Solution:
-    def dp(self,i,jobDifficulty,d,n,mx,dct):
-        if i>=n:
-            if  d>0:
-                return float("infinity")
-            return mx
-        if (i,d,mx) in dct:
-            return dct[(i,d,mx)]
-        x=self.dp(i+1,jobDifficulty,d-1,n,0,dct)+max(mx,jobDifficulty[i])
-        y=self.dp(i+1,jobDifficulty,d,n,max(mx,jobDifficulty[i]),dct)
-        dct[(i,d,mx)]=min(x,y)
-        return min(x,y)
     def minDifficulty(self, jobDifficulty: List[int], d: int) -> int:
-        n=len(jobDifficulty)
-        if n<d:
+        n = len(jobDifficulty)
+        if n < d:
             return -1
-        return self.dp(0,jobDifficulty,d,n,0,{})
+        dp = [[float('inf')] * (n + 1) for _ in range(d + 1)]
+        dp[0][0] = 0
+        for day in range(1, d + 1):
+            for i in range(1, n + 1):
+                maxDifficulty = 0
+                for j in range(i, 0, -1):
+                    maxDifficulty = max(maxDifficulty, jobDifficulty[j - 1])
+                    dp[day][i] = min(dp[day][i], dp[day - 1][j - 1] + maxDifficulty)
+        return dp[d][n]
