@@ -1,3 +1,7 @@
 class Solution:
-    def middleNode(self, h: Optional[ListNode]) -> Optional[ListNode]:
-        return (f:=h) and all(f and f.next and (h:=h.next,f:=f.next.next) for _ in count()) or h
+    def middleNode(self, head: Optional[ListNode]) -> Optional[ListNode]:
+        tortoise = hare = head
+        while hare and hare.next:
+            tortoise = tortoise.next
+            hare = hare.next.next
+        return tortoise
