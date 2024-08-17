@@ -1,31 +1,24 @@
 class Solution:
     def maxPoints(self, points: List[List[int]]) -> int:
-        rows, cols = len(points), len(points[0])
-        previous_row = points[0]
-
-        for row in range(1, rows):
-            left_max = [0] * cols
-            right_max = [0] * cols
-            current_row = [0] * cols
-
-            # Calculate left-to-right maximum
-            left_max[0] = previous_row[0]
-            for col in range(1, cols):
-                left_max[col] = max(left_max[col - 1] - 1, previous_row[col])
-
-            # Calculate right-to-left maximum
-            right_max[-1] = previous_row[-1]
-            for col in range(cols - 2, -1, -1):
-                right_max[col] = max(right_max[col + 1] - 1, previous_row[col])
-
-            # Calculate the current row's maximum points
-            for col in range(cols):
-                current_row[col] = points[row][col] + max(
-                    left_max[col], right_max[col]
-                )
-
-            # Update previous_row for the next iteration
-            previous_row = current_row
-
-        # Find the maximum value in the last processed row
-        return max(previous_row)
+        m, n = len(points), len(points[0])
+        prev = points[0]
+        
+        for r in range(1, m):
+            left = [0] * n
+            right = [0] * n
+            
+            # Compute left max array
+            left[0] = prev[0]
+            for c in range(1, n):
+                left[c] = max(left[c-1], prev[c] + c)
+            
+            # Compute right max array
+            right[-1] = prev[-1] - (n-1)
+            for c in range(n-2, -1, -1):
+                right[c] = max(right[c+1], prev[c] - c)
+            
+            # Update current row using left and right arrays
+            for c in range(n):
+                prev[c] = points[r][c] + max(left[c] - c, right[c] + c)
+        
+        return max(prev)
