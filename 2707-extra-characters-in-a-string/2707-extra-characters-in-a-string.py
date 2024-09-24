@@ -11,5 +11,4 @@ class Solution:
                 if curr in dictionary_set:
                     ans = min(ans, dp(end + 1))
             return ans
-            
         return dp(0)
