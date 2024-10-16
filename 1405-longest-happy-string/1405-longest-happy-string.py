@@ -3,13 +3,10 @@ class Solution:
         pq = []
         if a > 0:
             heapq.heappush(pq, (-a, "a"))
-
         if b > 0:
             heapq.heappush(pq, (-b, "b"))
-
         if c > 0:
             heapq.heappush(pq, (-c, "c"))
-
         ans = ""
         while pq:
             count, character = heapq.heappop(pq)
